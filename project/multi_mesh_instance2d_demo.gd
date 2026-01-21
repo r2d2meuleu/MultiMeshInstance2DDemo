@@ -1,11 +1,11 @@
-tool
+@tool
 extends Node2D
 
-export var do_distribution := false setget _set_do_distribution
-export var distribute_on_ready := false
+@export var do_distribution := false: set = _set_do_distribution
+@export var distribute_on_ready := false
 
-onready var _mesh_instance = $icon
-onready var _multi_mesh_instance = $MultiMeshInstance2D
+@onready var _mesh_instance = $icon
+@onready var _multi_mesh_instance = $MultiMeshInstance2D
 
 
 func _ready():
@@ -15,8 +15,11 @@ func _ready():
 
 
 func _do_distribution():
+	_multi_mesh_instance.multimesh.instance_count = 0
 	var multi_mesh = _multi_mesh_instance.multimesh
+	multi_mesh.use_colors = true
 	multi_mesh.mesh = _mesh_instance.mesh
+	_multi_mesh_instance.multimesh.instance_count = 200
 	var screen_size = get_viewport_rect().size
 	for i in multi_mesh.instance_count:
 		var v = Vector2( randf() * screen_size.x, randf() * screen_size.y )
